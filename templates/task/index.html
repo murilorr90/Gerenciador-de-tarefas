@@ -1,0 +1,11 @@
+{% if task_list %}
+    <ul>
+    {% for task in task_list %}
+        <li>{{ task.title}} - {{ task.description}}  <a href="/tasks/edit/{{ task.id }}">Edit</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tasks are available.</p>
+{% endif %}
+<a href="/tasks/new">New task</a>
+

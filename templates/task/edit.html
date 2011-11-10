@@ -1,0 +1,7 @@
+<form method="POST" action="/tasks/update/{{ id }}/">
+    {% for field in task_form %}{% csrf_token %}
+        <p>{{field.label}}{{ field }}</p>
+    {% endfor %}
+<input type="submit" value="Edit" />
+</form>
+<a href="/tasks/">Back</a>

@@ -20,5 +20,12 @@ urlpatterns = patterns('',
     url(r'^projects/edit/(?P<project_id>\d+)/$', 'dev01.gerenciadorprojetos.views.project_edit'),
     url(r'^projects/update/(?P<project_id>\d+)/$', 'dev01.gerenciadorprojetos.views.project_update'),
     url(r'^projects/new', 'dev01.gerenciadorprojetos.views.project_new'),
+    url(r'^projects/(?P<project_id>\d+)/$', 'dev01.gerenciadorprojetos.views.project_show'),
     #url(r'^/project/(?P\d+)/edit$', 'dev01.gerenciadorprojetos.views.project_edit'),
+
+    url(r'^tasks/$', 'dev01.gerenciadorprojetos.views.task_index'),    
+    url(r'^tasks/new', 'dev01.gerenciadorprojetos.views.task_new'),
+    url(r'^tasks/create', 'dev01.gerenciadorprojetos.views.task_create'),
+    url(r'^tasks/edit/(?P<project_id>\d+)/$', 'dev01.gerenciadorprojetos.views.task_edit'),
+    url(r'^tasks/update/(?P<project_id>\d+)/$', 'dev01.gerenciadorprojetos.views.task_update'),
 )
