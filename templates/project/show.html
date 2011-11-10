@@ -1,2 +1,16 @@
+<h2>{{ project.title }}</h2>
+<p> {{ project.description }}</p>
+<h3>TASKS:</h3>
+<a href="/projects/tasks/new">New Task</a>
+{% if task_list %}
+    <ul>
+    {% for task in task_list %}
+        <li>{{ task.title}} - {{ task.description}}  <a href="/tasks/edit/{{ task.id }}">Edit</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tasks are available.</p>
+{% endif %}
+<a href="/projects/">Back</a>
 
-<a href="/tasks/">Back</a>
+

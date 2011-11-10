@@ -1,0 +1,11 @@
+{% if user_list %}
+    <ul>
+    {% for user in user_list %}
+        <li>{{ user.username }} {{ user.email }}<a href="/users/edit/{{ user.id }}">Edit</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tasks are available.</p>
+{% endif %}
+<a href="/users/new">New user</a>
+

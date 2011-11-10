@@ -4,6 +4,7 @@ from gerenciadorprojetos.models import Project, ProjectForm
 from gerenciadorprojetos.models import Task, TaskForm
 from django.template import Context, loader
 from django.shortcuts import render_to_response, get_object_or_404
+from django.contrib.auth.models import User
 
 
 # Project
@@ -38,13 +39,13 @@ def project_edit(request,project_id):
 	return HttpResponse(t.render(c))
 
 def project_show(request,project_id):
-	task_item = Task.objects.all()
 	project = get_object_or_404(Project, pk=project_id)
-	project_form = ProjectForm(instance=project)
-	t = loader.get_template('project/edit.html')
-	c = Context({'project_form': project_form,'id':project_id})
+	task_list = Task.objects.filter( project_id = project_id)
+	t = loader.get_template('project/show.html')
+	c = Context({'id':project_id, 'project':project, 'task_list':task_list})
 	return HttpResponse(t.render(c))
-
+    	
+	return HttpResponse(t.render(c))
 
 def project_update(request,project_id):
 	project = get_object_or_404(Project, pk=project_id)
@@ -56,7 +57,7 @@ def project_update(request,project_id):
 		pass
 
 # Task
-def tasks_index(request):
+def task_index(request):
 	task_list = Task.objects.all()
 	t = loader.get_template('task/index.html')
 	c = Context({
@@ -64,7 +65,6 @@ def tasks_index(request):
     	})
     	
 	return HttpResponse(t.render(c))
-
 
 def task_new(request):
 	task_form = TaskForm()
@@ -80,14 +80,12 @@ def task_create(request):
 	else:
 		pass
 
-
 def task_edit(request,task_id):
 	task = get_object_or_404(Task, pk=task_id)
 	task_form = TaskForm(instance=task)
 	t = loader.get_template('task/edit.html')
 	c = Context({'task_form': task_form,'id':task_id})
 	return HttpResponse(t.render(c))
-
 
 def task_update(request,task_id):
 	task = get_object_or_404(Task, pk=task_id)
@@ -97,4 +95,23 @@ def task_update(request,task_id):
 		return HttpResponseRedirect('/projects/')
 	else:
 		pass
+
+#Users
+def user_index(request):
+	user_list = User.objects.all()
+	t = loader.get_template('user/index.html')
+	c = Context({
+		'user_list': user_list,
+    	})
+    	
+	return HttpResponse(t.render(c))
+
+def task_create(request):
+	formset = TaskForm(request.POST)
+       	if formset.is_valid():
+		formset.save()
+		return HttpResponseRedirect('/projects/')
+	else:
+		pass
+
 
