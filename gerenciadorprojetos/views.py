@@ -41,8 +41,8 @@ def project_show(request,project_id):
 	task_item = Task.objects.all()
 	project = get_object_or_404(Project, pk=project_id)
 	project_form = ProjectForm(instance=project)
-	t = loader.get_template('project/edit.html')
-	c = Context({'project_form': project_form,'id':project_id})
+	t = loader.get_template('project/show.html')
+	c = Context({'project_form': project_form,'id':project_id,'project':project})
 	return HttpResponse(t.render(c))
 
 
@@ -56,7 +56,7 @@ def project_update(request,project_id):
 		pass
 
 # Task
-def tasks_index(request):
+def task_index(request,project_id):
 	task_list = Task.objects.all()
 	t = loader.get_template('task/index.html')
 	c = Context({
@@ -66,7 +66,7 @@ def tasks_index(request):
 	return HttpResponse(t.render(c))
 
 
-def task_new(request):
+def task_new(request,project_id):
 	task_form = TaskForm()
 	t = loader.get_template('task/new.html')
 	c = Context({'task_form': task_form,})
@@ -85,7 +85,7 @@ def task_edit(request,task_id):
 	task = get_object_or_404(Task, pk=task_id)
 	task_form = TaskForm(instance=task)
 	t = loader.get_template('task/edit.html')
-	c = Context({'task_form': task_form,'id':task_id})
+	c = Context({'task_form': task_form,'task_id':task_id})
 	return HttpResponse(t.render(c))
 
 

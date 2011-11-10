@@ -1,4 +1,4 @@
-<form method="POST" action="/tasks/update/{{ id }}/">
+<form method="POST" action="/tasks/update/{{ task_id }}/">
     {% for field in task_form %}{% csrf_token %}
         <p>{{field.label}}{{ field }}</p>
     {% endfor %}
